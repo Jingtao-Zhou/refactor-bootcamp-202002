@@ -3,6 +3,7 @@ package cc.xpbootcamp.warmup.fibonacci;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class FibonacciCalculatorTest {
 
@@ -15,7 +16,7 @@ class FibonacciCalculatorTest {
         long calculateResult = FibonacciCalculator.calculate(position);
 
         //then
-        assertEquals(1L,calculateResult);
+        assertEquals(1L, calculateResult);
     }
 
     @Test
@@ -27,7 +28,7 @@ class FibonacciCalculatorTest {
         long calculateResult = FibonacciCalculator.calculate(position);
 
         //then
-        assertEquals(1L,calculateResult);
+        assertEquals(1L, calculateResult);
     }
 
     @Test
@@ -39,7 +40,7 @@ class FibonacciCalculatorTest {
         long calculateResult = FibonacciCalculator.calculate(position);
 
         //then
-        assertEquals(2L,calculateResult);
+        assertEquals(2L, calculateResult);
     }
 
     @Test
@@ -51,6 +52,22 @@ class FibonacciCalculatorTest {
         long calculateResult = FibonacciCalculator.calculate(position);
 
         //then
-        assertEquals(12586269025L,calculateResult);
+        assertEquals(12586269025L, calculateResult);
+    }
+
+    @Test
+    void should_get_exception_when_calculate_given_position_is_less_than_1() {
+        //given
+        int position = 0;
+
+        //when
+        try {
+            long calculateResult = FibonacciCalculator.calculate(position);
+        } catch (Exception e) {
+            //then
+            assertEquals("Position is not valid.", e.getMessage());
+            return ;
+        }
+        fail();
     }
 }

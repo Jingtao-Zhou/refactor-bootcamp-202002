@@ -2,6 +2,9 @@ package cc.xpbootcamp.warmup.fibonacci;
 
 public class FibonacciCalculator {
     public static long calculate(int position){
+        if(position < 1){
+            throw new RuntimeException("Position is not valid.");
+        }
         if(position <= 2){
             return 1;
         }
