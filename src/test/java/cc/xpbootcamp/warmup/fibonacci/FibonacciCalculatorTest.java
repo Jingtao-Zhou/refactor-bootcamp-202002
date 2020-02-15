@@ -70,4 +70,20 @@ class FibonacciCalculatorTest {
         }
         fail();
     }
+
+    @Test
+    void should_get_exception_when_calculate_given_position_is_more_than_50() {
+        //given
+        int position = 51;
+
+        //when
+        try {
+            long calculateResult = FibonacciCalculator.calculate(position);
+        } catch (Exception e) {
+            //then
+            assertEquals("Position is not valid.", e.getMessage());
+            return ;
+        }
+        fail();
+    }
 }
