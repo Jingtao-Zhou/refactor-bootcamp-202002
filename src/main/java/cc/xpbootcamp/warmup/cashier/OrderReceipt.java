@@ -21,28 +21,28 @@ public class OrderReceipt {
         printLineItems(output);
 
         double totalSalesTax = calculateTax(order);
-        double totalPrice = calculateTotalPrice(order,totalSalesTax);
+        double totalAmount = calculateTotalAmount(order,totalSalesTax);
 
         printTotalSalesTax(output, totalSalesTax);
-        printTotalAmount(output, totalPrice);
+        printTotalAmount(output, totalAmount);
 
         return output.toString();
     }
 
-    private void printTotalAmount(StringBuilder output, double totalPrice) {
-        output.append("Total Amount").append('\t').append(totalPrice);
+    private void printTotalAmount(StringBuilder output, double totalAmount) {
+        output.append("Total Amount").append('\t').append(totalAmount);
     }
 
     private void printTotalSalesTax(StringBuilder output, double totalSalesTax) {
         output.append("Sales Tax").append('\t').append(totalSalesTax);
     }
 
-    private double calculateTotalPrice(Order order,double totalSalesTax) {
-        double totalPrice = 0d;
+    private double calculateTotalAmount(Order order, double totalSalesTax) {
+        double totalAmount = 0d;
         for (LineItem lineItem : order.getLineItems()) {
-            totalPrice +=lineItem.totalAmount();
+            totalAmount +=lineItem.totalAmount();
         }
-        return totalPrice+totalSalesTax;
+        return totalAmount+totalSalesTax;
     }
 
     private double calculateTax(Order order) {
