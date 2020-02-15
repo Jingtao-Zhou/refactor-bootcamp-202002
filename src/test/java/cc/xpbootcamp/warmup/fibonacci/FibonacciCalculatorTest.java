@@ -12,10 +12,10 @@ class FibonacciCalculatorTest {
         int position = 1;
 
         //when
-        int calculateResult = FibonacciCalculator.calculate(position);
+        long calculateResult = FibonacciCalculator.calculate(position);
 
         //then
-        assertEquals(1,calculateResult);
+        assertEquals(1L,calculateResult);
     }
 
     @Test
@@ -24,10 +24,10 @@ class FibonacciCalculatorTest {
         int position = 2;
 
         //when
-        int calculateResult = FibonacciCalculator.calculate(position);
+        long calculateResult = FibonacciCalculator.calculate(position);
 
         //then
-        assertEquals(1,calculateResult);
+        assertEquals(1L,calculateResult);
     }
 
     @Test
@@ -36,9 +36,21 @@ class FibonacciCalculatorTest {
         int position = 3;
 
         //when
-        int calculateResult = FibonacciCalculator.calculate(position);
+        long calculateResult = FibonacciCalculator.calculate(position);
 
         //then
-        assertEquals(2,calculateResult);
+        assertEquals(2L,calculateResult);
+    }
+
+    @Test
+    void should_get_12586269025_when_calculate_given_position_is_50() {
+        //given
+        int position = 50;
+
+        //when
+        long calculateResult = FibonacciCalculator.calculate(position);
+
+        //then
+        assertEquals(12586269025L,calculateResult);
     }
 }
