@@ -23,12 +23,18 @@ public class OrderReceipt {
         double totalSalesTax = calculateTax(order);
         double totalPrice = calculateTotalPrice(order,totalSalesTax);
 
-        // prints the state tax
-        output.append("Sales Tax").append('\t').append(totalSalesTax);
+        printTotalSalesTax(output, totalSalesTax);
+        printTotalAmount(output, totalPrice);
 
-        // print total amount
-        output.append("Total Amount").append('\t').append(totalPrice);
         return output.toString();
+    }
+
+    private void printTotalAmount(StringBuilder output, double totalPrice) {
+        output.append("Total Amount").append('\t').append(totalPrice);
+    }
+
+    private void printTotalSalesTax(StringBuilder output, double totalSalesTax) {
+        output.append("Sales Tax").append('\t').append(totalSalesTax);
     }
 
     private double calculateTotalPrice(Order order,double totalSalesTax) {
