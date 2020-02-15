@@ -17,4 +17,28 @@ class FibonacciCalculatorTest {
         //then
         assertEquals(1,calculateResult);
     }
+
+    @Test
+    void should_get_1_when_calculate_given_position_is_2() {
+        //given
+        int position = 2;
+
+        //when
+        int calculateResult = FibonacciCalculator.calculate(position);
+
+        //then
+        assertEquals(1,calculateResult);
+    }
+
+    @Test
+    void should_get_2_when_calculate_given_position_is_3() {
+        //given
+        int position = 3;
+
+        //when
+        int calculateResult = FibonacciCalculator.calculate(position);
+
+        //then
+        assertEquals(2,calculateResult);
+    }
 }
