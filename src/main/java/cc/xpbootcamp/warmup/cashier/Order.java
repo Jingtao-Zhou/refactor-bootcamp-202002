@@ -13,15 +13,15 @@ public class Order {
         this.lineItemList = lineItemList;
     }
 
-    public String getCustomerName() {
+    String getCustomerName() {
         return cName;
     }
 
-    public String getCustomerAddress() {
+    String getCustomerAddress() {
         return addr;
     }
 
-    public List<LineItem> getLineItems() {
+    List<LineItem> getLineItems() {
         return lineItemList;
     }
 }
