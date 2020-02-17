@@ -31,10 +31,10 @@ class OrderReceiptTest {
         OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
 
         String output = receipt.printReceipt();
-        System.out.println(output);
-        assertThat(output, containsString("milk\t10.0\t2\t20.0\n"));
-        assertThat(output, containsString("biscuits\t5.0\t5\t25.0\n"));
-        assertThat(output, containsString("chocolate\t20.0\t1\t20.0\n"));
+
+        assertThat(output, containsString("milk，10.00*2，20.00\n"));
+        assertThat(output, containsString("biscuits，5.00*5，25.00\n"));
+        assertThat(output, containsString("chocolate，20.00*1，20.00\n"));
         assertThat(output, containsString("税额：\t6.5"));
         assertThat(output, containsString("总价：\t71.5"));
     }

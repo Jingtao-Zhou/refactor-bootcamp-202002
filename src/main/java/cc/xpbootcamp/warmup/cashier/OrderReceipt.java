@@ -73,7 +73,7 @@ public class OrderReceipt {
 
     private void printLineItems(StringBuilder output) {
         for (LineItem lineItem : order.getLineItems()) {
-            output.append(String.format("%s，%.2fx%d，%.2f",
+            output.append(String.format("%s，%.2f*%d，%.2f",
                     lineItem.getDescription(),
                     lineItem.getPrice(),
                     lineItem.getQuantity(),
