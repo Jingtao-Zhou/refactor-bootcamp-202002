@@ -86,4 +86,16 @@ class FibonacciCalculatorTest {
         }
         fail();
     }
+
+    @Test
+    void should_get_12586269025_when_calculate_by_matrix_given_position_is_50() {
+        //given
+        int position = 50;
+
+        //when
+        long calculateResult = FibonacciCalculator.calculateByMatrix(position);
+
+        //then
+        assertEquals(12586269025L, calculateResult);
+    }
 }

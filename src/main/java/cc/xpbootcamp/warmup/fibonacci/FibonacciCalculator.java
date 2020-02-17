@@ -18,4 +18,24 @@ public class FibonacciCalculator {
         }
         return currentResult;
     }
+
+    public static long calculateByMatrix(int position){
+        if(position <= 2){
+            return 1;
+        }
+
+        Matrix originMatrix = new Matrix(2);
+        Matrix coefficientMatrix = new Matrix(2);
+
+        originMatrix.matrix[0][0] = 1;
+        originMatrix.matrix[0][1] = 1;
+
+        coefficientMatrix.matrix[0][1] = 1;
+        coefficientMatrix.matrix[1][0] = 1;
+        coefficientMatrix.matrix[1][1] = 1;
+
+        Matrix resultMatrix = originMatrix.crossProduct(Matrix.pow(coefficientMatrix,position-2));
+        resultMatrix.show();
+        return resultMatrix.matrix[0][1];
+    }
 }
