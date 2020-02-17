@@ -27,15 +27,19 @@ public class FibonacciCalculator {
         Matrix originMatrix = new Matrix(2);
         Matrix coefficientMatrix = new Matrix(2);
 
+//     f1 f2
+//      0 0
         originMatrix.matrix[0][0] = 1;
         originMatrix.matrix[0][1] = 1;
 
+//      0 1
+//      1 1
         coefficientMatrix.matrix[0][1] = 1;
         coefficientMatrix.matrix[1][0] = 1;
         coefficientMatrix.matrix[1][1] = 1;
 
         Matrix resultMatrix = originMatrix.crossProduct(Matrix.pow(coefficientMatrix,position-2));
-        resultMatrix.show();
+
         return resultMatrix.matrix[0][1];
     }
 }
