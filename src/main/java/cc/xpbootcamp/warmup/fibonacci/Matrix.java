@@ -24,17 +24,22 @@ class Matrix {
     }
 
     static Matrix pow(Matrix matrix, int time) {
-        Matrix resultMatrix = new Matrix(matrix.length);
-
-        for (int i = 0; i < matrix.length; i++) {
-            resultMatrix.matrix[i][i] = 1;
-        }
+        Matrix resultMatrix = getUnitMatrix(matrix.length);
 
         for (; time > 0; time >>= 1) {
             if (time % 2 == 1) {
                 resultMatrix = resultMatrix.crossProduct(matrix);
             }
             matrix = matrix.crossProduct(matrix);
+        }
+        return resultMatrix;
+    }
+
+    private static Matrix getUnitMatrix(int length){
+        Matrix resultMatrix = new Matrix(length);
+
+        for (int i = 0; i < length; i++) {
+            resultMatrix.matrix[i][i] = 1;
         }
         return resultMatrix;
     }
