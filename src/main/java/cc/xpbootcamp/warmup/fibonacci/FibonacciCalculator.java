@@ -25,7 +25,7 @@ public class FibonacciCalculator {
         }
 
         Matrix originMatrix = new Matrix(2);
-        Matrix coefficientMatrix = new Matrix(2);
+        Matrix TransferMatrix = new Matrix(2);
 
 //     f1 f2
 //      0 0
@@ -34,11 +34,11 @@ public class FibonacciCalculator {
 
 //      0 1
 //      1 1
-        coefficientMatrix.matrix[0][1] = 1;
-        coefficientMatrix.matrix[1][0] = 1;
-        coefficientMatrix.matrix[1][1] = 1;
+        TransferMatrix.matrix[0][1] = 1;
+        TransferMatrix.matrix[1][0] = 1;
+        TransferMatrix.matrix[1][1] = 1;
 
-        Matrix resultMatrix = originMatrix.crossProduct(Matrix.pow(coefficientMatrix,position-2));
+        Matrix resultMatrix = originMatrix.crossProduct(Matrix.pow(TransferMatrix,position-2));
 
         return resultMatrix.matrix[0][1];
     }
