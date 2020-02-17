@@ -20,12 +20,28 @@ public class OrderReceipt {
         printLineItems(output);
         printSplitLine(output);
         double totalSalesTax = calculateTax(order);
-        double totalAmount = calculateTotalAmount(order, totalSalesTax);
-
+        double totalAmount = calculateTotalAmount(order);
+        double discount = calculateDiscount(totalAmount);
+        double totalAmountWithTax = totalAmount + totalSalesTax;
         printTotalSalesTax(output, totalSalesTax);
-        printTotalAmount(output, totalAmount);
+        if (dayOfWeekIsWednesDay()) {
+            printDiscountAmout(output, discount);
+        }
+        printTotalAmount(output, totalAmountWithTax);
 
         return output.toString();
+    }
+
+    private boolean dayOfWeekIsWednesDay() {
+        return LocalDate.now().getDayOfWeek().getValue() == 3;
+    }
+
+    private void printDiscountAmout(StringBuilder output, double discount) {
+        output.append("折扣：").append("\t").append(String.format("%.2f",discount)).append("\n");
+    }
+
+    private double calculateDiscount(double totalAmount) {
+        return totalAmount * 0.02;
     }
 
     private void printSplitLine(StringBuilder output) {
@@ -47,19 +63,19 @@ public class OrderReceipt {
     }
 
     private void printTotalAmount(StringBuilder output, double totalAmount) {
-        output.append("总价：").append('\t').append(totalAmount);
+        output.append("总价：").append('\t').append(String.format("%.2f",totalAmount));
     }
 
     private void printTotalSalesTax(StringBuilder output, double totalSalesTax) {
-        output.append("税额：").append('\t').append(totalSalesTax).append("\n");
+        output.append("税额：").append('\t').append(String.format("%.2f",totalSalesTax)).append("\n");
     }
 
-    private double calculateTotalAmount(Order order, double totalSalesTax) {
+    private double calculateTotalAmount(Order order) {
         double totalAmount = 0d;
         for (LineItem lineItem : order.getLineItems()) {
             totalAmount += lineItem.totalAmount();
         }
-        return totalAmount + totalSalesTax;
+        return totalAmount;
     }
 
     private double calculateTax(Order order) {
@@ -86,7 +102,7 @@ public class OrderReceipt {
         if (order.getCustomerName() != null) {
             output.append(order.getCustomerName());
         }
-        if (order.getCustomerAddress() != null){
+        if (order.getCustomerAddress() != null) {
             output.append(order.getCustomerAddress());
         }
     }

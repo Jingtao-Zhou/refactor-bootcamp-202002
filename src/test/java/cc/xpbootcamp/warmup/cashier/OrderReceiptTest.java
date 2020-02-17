@@ -2,6 +2,7 @@ package cc.xpbootcamp.warmup.cashier;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,4 +40,20 @@ class OrderReceiptTest {
         assertThat(output, containsString("总价：\t71.5"));
     }
 
+    @Test
+    void shouldDiscountWhenShoppingOnWednesday() {
+        List<LineItem> lineItems = new ArrayList<LineItem>() {{
+            add(new LineItem("milk", 10.0, 2));
+        }};
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
+
+        String output = receipt.printReceipt();
+
+        assertThat(output, containsString("milk，10.00*2，20.00\n"));
+        assertThat(output, containsString("税额：\t2.00"));
+        if (LocalDate.now().getDayOfWeek().getValue() == 3) {
+            assertThat(output, containsString("折扣：\t0.40"));
+        }
+        assertThat(output, containsString("总价：\t22.00"));
+    }
 }
