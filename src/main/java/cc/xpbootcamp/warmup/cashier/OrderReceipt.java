@@ -1,5 +1,9 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
 public class OrderReceipt {
     private Order order;
 
@@ -11,11 +15,12 @@ public class OrderReceipt {
         StringBuilder output = new StringBuilder();
 
         printHeaders(output);
+        printDateAndWeek(output);
         printCustomerInfo(output);
         printLineItems(output);
-
+        printSplitLine(output);
         double totalSalesTax = calculateTax(order);
-        double totalAmount = calculateTotalAmount(order,totalSalesTax);
+        double totalAmount = calculateTotalAmount(order, totalSalesTax);
 
         printTotalSalesTax(output, totalSalesTax);
         printTotalAmount(output, totalAmount);
@@ -23,20 +28,38 @@ public class OrderReceipt {
         return output.toString();
     }
 
+    private void printSplitLine(StringBuilder output) {
+        output.append("---------------------").append("\n");
+    }
+
+    private void printDateAndWeek(StringBuilder output) {
+        output.append("\n");
+        LocalDate now = LocalDate.now();
+        output.append(now.getYear())
+                .append("年")
+                .append(now.getMonth().getValue())
+                .append("月")
+                .append(now.getDayOfMonth())
+                .append("日");
+        output.append("，")
+                .append(now.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.CHINESE))
+                .append("\n\n");
+    }
+
     private void printTotalAmount(StringBuilder output, double totalAmount) {
-        output.append("Total Amount").append('\t').append(totalAmount);
+        output.append("总价：").append('\t').append(totalAmount);
     }
 
     private void printTotalSalesTax(StringBuilder output, double totalSalesTax) {
-        output.append("Sales Tax").append('\t').append(totalSalesTax);
+        output.append("税额：").append('\t').append(totalSalesTax).append("\n");
     }
 
     private double calculateTotalAmount(Order order, double totalSalesTax) {
         double totalAmount = 0d;
         for (LineItem lineItem : order.getLineItems()) {
-            totalAmount +=lineItem.totalAmount();
+            totalAmount += lineItem.totalAmount();
         }
-        return totalAmount+totalSalesTax;
+        return totalAmount + totalSalesTax;
     }
 
     private double calculateTax(Order order) {
@@ -50,23 +73,25 @@ public class OrderReceipt {
 
     private void printLineItems(StringBuilder output) {
         for (LineItem lineItem : order.getLineItems()) {
-            output.append(lineItem.getDescription());
-            output.append('\t');
-            output.append(lineItem.getPrice());
-            output.append('\t');
-            output.append(lineItem.getQuantity());
-            output.append('\t');
-            output.append(lineItem.totalAmount());
-            output.append('\n');
+            output.append(String.format("%s，%.2fx%d，%.2f",
+                    lineItem.getDescription(),
+                    lineItem.getPrice(),
+                    lineItem.getQuantity(),
+                    lineItem.totalAmount()))
+                    .append("\n");
         }
     }
 
     private void printCustomerInfo(StringBuilder output) {
-        output.append(order.getCustomerName());
-        output.append(order.getCustomerAddress());
+        if (order.getCustomerName() != null) {
+            output.append(order.getCustomerName());
+        }
+        if (order.getCustomerAddress() != null){
+            output.append(order.getCustomerAddress());
+        }
     }
 
     private void printHeaders(StringBuilder output) {
-        output.append("======Printing Orders======\n");
+        output.append("======老王超市，值得信赖======\n");
     }
 }
