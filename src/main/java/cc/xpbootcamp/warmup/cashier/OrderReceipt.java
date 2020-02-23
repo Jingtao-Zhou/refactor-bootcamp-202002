@@ -6,8 +6,6 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 public class OrderReceipt {
-    private static final double DISCOUNT = 0.02;
-    private static final double TAX_RATE = .10;
     private Order order;
 
     public OrderReceipt(Order order) {
@@ -28,9 +26,9 @@ public class OrderReceipt {
     }
 
     private void printAmount(StringBuilder output) {
-        double totalSalesTax = calculateTax(order);
-        double totalAmount = calculateTotalAmount(order);
-        double discount = calculateDiscount(totalAmount);
+        double totalSalesTax = order.calculateTax();
+        double totalAmount = order.calculateTotalAmount();
+        double discount = order.calculateDiscount();
         double totalAmountWithTax = totalAmount + totalSalesTax;
 
         printTotalSalesTax(output, totalSalesTax);
@@ -46,10 +44,6 @@ public class OrderReceipt {
 
     private void printDiscountAmout(StringBuilder output, double discount) {
         output.append(String.format("折扣：\t%.2f\n",discount));
-    }
-
-    private double calculateDiscount(double totalAmount) {
-        return totalAmount * DISCOUNT;
     }
 
     private void printSplitLine(StringBuilder output) {
@@ -78,32 +72,8 @@ public class OrderReceipt {
         output.append(String.format("税额：\t%.2f\n",totalSalesTax));
     }
 
-    private double calculateTotalAmount(Order order) {
-        double totalAmount = 0d;
-        for (LineItem lineItem : order.getLineItems()) {
-            totalAmount += lineItem.totalAmount();
-        }
-        return totalAmount;
-    }
-
-    private double calculateTax(Order order) {
-        double totalSalesTax = 0d;
-        for (LineItem lineItem : order.getLineItems()) {
-            double salesTax = lineItem.totalAmount() * TAX_RATE;
-            totalSalesTax += salesTax;
-        }
-        return totalSalesTax;
-    }
-
     private void printLineItems(StringBuilder output) {
-        for (LineItem lineItem : order.getLineItems()) {
-            output.append(String.format("%s，%.2f*%d，%.2f",
-                    lineItem.getDescription(),
-                    lineItem.getPrice(),
-                    lineItem.getQuantity(),
-                    lineItem.totalAmount()))
-                    .append("\n");
-        }
+        output.append(order.getLineItemInfo());
     }
 
     private void printCustomerInfo(StringBuilder output) {
