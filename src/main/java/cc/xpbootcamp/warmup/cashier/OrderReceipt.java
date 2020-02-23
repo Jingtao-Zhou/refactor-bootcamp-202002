@@ -6,6 +6,8 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 public class OrderReceipt {
+    private static final double DISCOUNT = 0.02;
+    private static final double TAX_RATE = .10;
     private Order order;
 
     public OrderReceipt(Order order) {
@@ -44,7 +46,7 @@ public class OrderReceipt {
     }
 
     private double calculateDiscount(double totalAmount) {
-        return totalAmount * 0.02;
+        return totalAmount * DISCOUNT;
     }
 
     private void printSplitLine(StringBuilder output) {
@@ -84,7 +86,7 @@ public class OrderReceipt {
     private double calculateTax(Order order) {
         double totalSalesTax = 0d;
         for (LineItem lineItem : order.getLineItems()) {
-            double salesTax = lineItem.totalAmount() * .10;
+            double salesTax = lineItem.totalAmount() * TAX_RATE;
             totalSalesTax += salesTax;
         }
         return totalSalesTax;
