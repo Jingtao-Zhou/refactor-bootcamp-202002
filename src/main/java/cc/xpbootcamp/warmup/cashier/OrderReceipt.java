@@ -1,5 +1,6 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -19,12 +20,14 @@ public class OrderReceipt {
         printCustomerInfo(output);
         printLineItems(output);
         printSplitLine(output);
+
         double totalSalesTax = calculateTax(order);
         double totalAmount = calculateTotalAmount(order);
         double discount = calculateDiscount(totalAmount);
         double totalAmountWithTax = totalAmount + totalSalesTax;
+
         printTotalSalesTax(output, totalSalesTax);
-        if (dayOfWeekIsWednesDay()) {
+        if (dayOfWeekIsWednesday()) {
             printDiscountAmout(output, discount);
         }
         printTotalAmount(output, totalAmountWithTax);
@@ -32,8 +35,8 @@ public class OrderReceipt {
         return output.toString();
     }
 
-    private boolean dayOfWeekIsWednesDay() {
-        return LocalDate.now().getDayOfWeek().getValue() == 3;
+    private boolean dayOfWeekIsWednesday() {
+        return DayOfWeek.WEDNESDAY.equals(LocalDate.now().getDayOfWeek());
     }
 
     private void printDiscountAmout(StringBuilder output, double discount) {
