@@ -22,7 +22,12 @@ public class OrderReceipt {
         printCustomerInfo(output);
         printLineItems(output);
         printSplitLine(output);
+        printAmount(output);
 
+        return output.toString();
+    }
+
+    private void printAmount(StringBuilder output) {
         double totalSalesTax = calculateTax(order);
         double totalAmount = calculateTotalAmount(order);
         double discount = calculateDiscount(totalAmount);
@@ -33,8 +38,6 @@ public class OrderReceipt {
             printDiscountAmout(output, discount);
         }
         printTotalAmount(output, totalAmountWithTax);
-
-        return output.toString();
     }
 
     private boolean dayOfWeekIsWednesday() {
