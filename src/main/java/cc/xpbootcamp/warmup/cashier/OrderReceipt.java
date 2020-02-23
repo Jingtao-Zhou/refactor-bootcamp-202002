@@ -40,7 +40,7 @@ public class OrderReceipt {
     }
 
     private void printDiscountAmout(StringBuilder output, double discount) {
-        output.append("折扣：").append("\t").append(String.format("%.2f",discount)).append("\n");
+        output.append(String.format("折扣：\t%.2f\n",discount));
     }
 
     private double calculateDiscount(double totalAmount) {
@@ -66,11 +66,11 @@ public class OrderReceipt {
     }
 
     private void printTotalAmount(StringBuilder output, double totalAmount) {
-        output.append("总价：").append('\t').append(String.format("%.2f",totalAmount));
+        output.append(String.format("总价：\t%.2f",totalAmount));
     }
 
     private void printTotalSalesTax(StringBuilder output, double totalSalesTax) {
-        output.append("税额：").append('\t').append(String.format("%.2f",totalSalesTax)).append("\n");
+        output.append(String.format("税额：\t%.2f\n",totalSalesTax));
     }
 
     private double calculateTotalAmount(Order order) {
